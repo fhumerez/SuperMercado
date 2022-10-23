@@ -1,0 +1,40 @@
+﻿<h3>Detalle del Carrito
+    <div align="right">
+        <a class="btn btn-info" asp-controller="Super" asp-action="index">Retornar</a>
+    </div>
+</h3>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Producto</th>
+            <th>Imagen / Eliminar</th>
+            <th>Precio Bs.</th>
+            <th>Cantidad</th>
+            <th>SubTotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Elemento item in ViewBag.carrito)
+        {
+            <tr>
+                <td>@item.producto.id</td>
+                <td>@item.producto.nombre</td>
+                <td>
+                    <img src="~/imagenes/@item.producto.imagen" width="80" height="80"/>
+                    <a class="btn btn-danger" asp-controller="Carrito" asp-action="Eliminar" asp-route-id="@item.producto.id">Eliminar un producto</a>
+                </td>
+                <td>@item.producto.precio</td>
+                <td>@item.cantidad</td>
+                <td>@string.Format("{0:0.00}", (item.producto.precio * item.cantidad))</td>
+            </tr>
+        }
+        <tr>
+            <td colspan="5" align="right"><b>Total Bs.:</b></td>
+            <td> <b>@string.Format("{0:0.00}", ViewBag.total)</b></td>
+        </tr>
+        
+
+    </tbody>
+</table>
+<a class="btn btn-warning" asp-controller="Carrito" asp-action="Vaciar">Finalizar Compra</a>
